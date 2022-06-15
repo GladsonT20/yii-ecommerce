@@ -1,0 +1,97 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Handles the creation of table `{{%products}}`.
+ * Has foreign keys to the tables:
+ *
+ * - `{{%user}}`
+ * - `{{%user}}`
+ */
+class m220610_065754_create_products_table extends Migration
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
+    {
+        $this->createTable('{{%products}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(255)->notNull(),
+            'description' => $this->text()(),
+            'image' => $this->string(2000),
+            'price' => $this->decimal(10,2)->notNull(),
+            'status' => $this->int(2)->notNull()->notNull(),
+            'created_at' => $this->integer(11),
+            'updated_at' => $this->integer(11),
+            'updated_by' => $this->interger(11),
+        ]);
+
+        // creates index for column `updated_at`
+        $this->createIndex(
+            '{{%idx-products-updated_at}}',
+            '{{%products}}',
+            'updated_at'
+        );
+
+        // add foreign key for table `{{%user}}`
+        $this->addForeignKey(
+            '{{%fk-products-updated_at}}',
+            '{{%products}}',
+            'updated_at',
+            '{{%user}}',
+            'id',
+            'CASCADE'
+        );
+
+        // creates index for column `updated_by`
+        $this->createIndex(
+            '{{%idx-products-updated_by}}',
+            '{{%products}}',
+            'updated_by'
+        );
+
+        // add foreign key for table `{{%user}}`
+        $this->addForeignKey(
+            '{{%fk-products-updated_by}}',
+            '{{%products}}',
+            'updated_by',
+            '{{%user}}',
+            'id',
+            'CASCADE'
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
+    {
+        // drops foreign key for table `{{%user}}`
+        $this->dropForeignKey(
+            '{{%fk-products-updated_at}}',
+            '{{%products}}'
+        );
+
+        // drops index for column `updated_at`
+        $this->dropIndex(
+            '{{%idx-products-updated_at}}',
+            '{{%products}}'
+        );
+
+        // drops foreign key for table `{{%user}}`
+        $this->dropForeignKey(
+            '{{%fk-products-updated_by}}',
+            '{{%products}}'
+        );
+
+        // drops index for column `updated_by`
+        $this->dropIndex(
+            '{{%idx-products-updated_by}}',
+            '{{%products}}'
+        );
+
+        $this->dropTable('{{%products}}');
+    }
+}
