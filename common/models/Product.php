@@ -58,9 +58,9 @@ class Product extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-            'image' => 'Image',
+            'image' => 'Product Image',
             'price' => 'Price',
-            'status' => 'Status',
+            'status' => 'Published',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
@@ -109,10 +109,10 @@ class Product extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\ProductsQuery the active query used by this AR class.
+     * @return \common\models\query\ProductQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\ProductsQuery(get_called_class());
+        return new \common\models\query\ProductQuery(get_called_class());
     }
 }

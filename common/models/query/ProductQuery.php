@@ -7,7 +7,7 @@ namespace common\models\query;
  *
  * @see \common\models\Product
  */
-class ProductsQuery extends \yii\db\ActiveQuery
+class ProductQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
